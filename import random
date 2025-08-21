@@ -1,0 +1,35 @@
+import time
+import os
+from datetime import datetime
+
+def remind_user(task, interval):
+    while True:
+        time.sleep(interval)
+        print(f"\n🔔 Reminder: {task} ({datetime.now().strftime('%H:%M:%S')})")
+        os.system("say 'Time to " + task + "'")  # Mac only - for speech
+        # For Windows, you can use:
+        # os.system(f'powershell -Command "Add-Type –AssemblyName System.Speech; (New-Object System.Speech.Synthesis.SpeechSynthesizer).Speak(\'Time to {task}\');"')
+
+# Reminders in seconds (e.g., 20 minutes = 1200 seconds)
+reminders = [
+    ("drink water", 3600),         # every 1 hour
+    ("stand up and stretch", 1800),  # every 30 minutes
+    ("rest your eyes", 1200),      # every 20 minutes
+    ("take a deep breath", 900),   # every 15 minutes
+]
+
+print("✅ Healthy Life Reminder is running... Press Ctrl+C to stop.\n")
+
+try:
+    for task, interval in reminders:
+        # Start each reminder in a separate thread
+        import threading
+        t = threading.Thread(target=remind_user, args=(task, interval), daemon=True)
+        t.start()
+
+    # Keep the main thread alive
+    while True:
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    print("\n🛑 Program stopped by user. Stay healthy!")
