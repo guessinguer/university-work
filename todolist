@@ -1,0 +1,19 @@
+tasks = []
+
+while True:
+    print("\nTo-Do List")
+    for i, task in enumerate(tasks, 1):
+        print(f"{i}. {task}")
+    print("Options: [1] Add [2] Remove [3] Quit")
+
+    choice = input("Choose: ")
+    if choice == "1":
+        tasks.append(input("New task: "))
+    elif choice == "2":
+        index = int(input("Task number to remove: ")) - 1
+        if 0 <= index < len(tasks):
+            tasks.pop(index)
+    elif choice == "3":
+        break
+    else:
+        print("Invalid choice")
