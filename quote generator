@@ -1,0 +1,60 @@
+# Simple Client Response Automator
+import json
+
+# Predefined FAQ / responses
+import random
+
+# Define the keywords dictionary
+keywords = {
+    "hello": "greeting",
+    "hi": "greeting",
+    "hey": "greeting",
+    "hours": "hours",
+    "time": "hours",
+    "service": "services",
+    "what do you do": "services",
+    "price": "pricing",
+    "cost": "pricing",
+    "contact": "contact",
+    "email": "contact",
+    "thanks": "thanks",
+    "thank you": "thanks"
+}
+
+# Define responses for each category
+responses = {
+    "greeting": "Good day! How may I assist you today?",
+    "hours": "Our working hours are from 9 AM to 6 PM, Monday to Friday.",
+    "services": "We offer a wide range of professional services tailored to your needs.",
+    "pricing": "Our pricing varies depending on the project. Can you tell me more about what you need?",
+    "contact": "You can reach us via email at contact@example.com.",
+    "thanks": "You're welcome! If you have more questions, feel free to ask.",
+    "unknown": "I'm sorry, I didn't quite understand that. Could you please rephrase?"
+}
+
+# Function to get response
+def get_response(message):
+    for keyword, category in keywords.items():
+        if keyword in message.lower():
+            return responses[category]
+    return responses["unknown"]
+
+# Main function
+def main():
+    print("Welcome! May I know your name?")
+    client_name = input("> ")
+
+    print(f"\nGood afternoon, {client_name}. How may I assist you today?\n")
+
+    while True:
+        client_message = input("> ")
+        if client_message.lower() in ["exit", "quit", "bye"]:
+            print(f"Thank you for your time, {client_name}. Have a wonderful day!")
+            break
+
+        reply = get_response(client_message)
+        print(reply)
+
+# Run the program
+if __name__ == "__main__":
+    main()
